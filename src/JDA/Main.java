@@ -10,7 +10,7 @@ import java.net.http.HttpRequest;
 
 public class Main {
 
-    public static final Client c = new Client("OTgwNjY5MzY4NDk1MTEyMjUz.GArGaU.ijqNAHs221yrGMPbLM8uoP2r5e7eCB0KXjZ9fI");
+    public static final Client c = new Client("");
     public static final Listener l = new Listener();
 
     public static final String SELF = "JavaTest";
