@@ -37,8 +37,6 @@ public class Main {
         });
 
         c.addListener(l);
-
-        //run(new String[]{"sheetsCLI.exe ./Token/credentials.json intellij test"}, "./");
     }
 
     public static void run(String[] actions, String dir) {
