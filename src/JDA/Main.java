@@ -30,6 +30,12 @@ public class Main {
             );
         });
 
+        l.addEventAction(MessageReceivedEvent.class, messageReceivedEvent -> {
+            if (messageReceivedEvent.getMessage().getContentRaw().equals("closeBot")) {
+                System.exit(0);
+            }
+        });
+
         c.addListener(l);
 
         //run(new String[]{"sheetsCLI.exe ./Token/credentials.json intellij test"}, "./");
