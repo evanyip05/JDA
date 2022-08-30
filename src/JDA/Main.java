@@ -6,8 +6,6 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.http.HttpRequest;
-import java.util.Scanner;
 
 public class Main {
 
@@ -21,14 +19,20 @@ public class Main {
         // message detect is a subclass of eventAction btw. signatures:
         // public                          void addEventAction(EventAction<? extends GenericEvent> action)
         // public <E extends GenericEvent> void addEventAction(Class<E> event, Consumer<E> action)
+        // sheetsCLI -> token dir -> sheetID -> message
         l.addEventAction(MessageReceivedEvent.class, messageReceivedEvent -> {
             System.out.println(messageReceivedEvent.getMessage().getContentRaw());
-            run(new String[] {"node index.js " + messageReceivedEvent.getChannel().getName() + " ch:", "node index.js " + messageReceivedEvent.getMessage().getAuthor().getAsTag()+":   "+messageReceivedEvent.getMessage().getContentRaw(), "node index.js --------------------------------------------------------------------------"},
-                "C:\\Users\\evany\\Desktop\\GSheets"
+            run(new String[] {
+                    "sheetsCLI.exe ./Token/credentials.json 15f3IR2T0ItInwfv9xe1JJmtzTq5W2YVlHSgZKbIq24Q " + messageReceivedEvent.getChannel().getName() + " ch:",
+                    "sheetsCLI.exe ./Token/credentials.json 15f3IR2T0ItInwfv9xe1JJmtzTq5W2YVlHSgZKbIq24Q " + messageReceivedEvent.getMessage().getAuthor().getAsTag()+":   "+messageReceivedEvent.getMessage().getContentRaw(),
+                    "sheetsCLI.exe ./Token/credentials.json 15f3IR2T0ItInwfv9xe1JJmtzTq5W2YVlHSgZKbIq24Q --------------------------------------------------------------------------"},
+                "./"
             );
         });
 
         c.addListener(l);
+
+        //run(new String[]{"sheetsCLI.exe ./Token/credentials.json intellij test"}, "./");
     }
 
     public static void run(String[] actions, String dir) {

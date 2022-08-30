@@ -1,3 +1,4 @@
 # Project exclude paths
 /out/
 /Token/token.txt
+/Token/credentials.json

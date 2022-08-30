@@ -19,8 +19,5 @@ public class Client {
         }
     }
 
-    public void doStuff() {
-    }
-
     public void addListener(Listener l) {client.addEventListener(l);}
 }
