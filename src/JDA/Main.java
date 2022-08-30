@@ -7,10 +7,11 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.http.HttpRequest;
+import java.util.Scanner;
 
 public class Main {
 
-    public static final Client c = new Client("");
+    public static final Client c = new Client("./Token/token.txt");
     public static final Listener l = new Listener();
 
     public static final String SELF = "JavaTest";
