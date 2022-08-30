@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class Main {
 
-    public static final Client c = new Client("./Token/token.txt");
+    //public static final Client c = new Client("./Token/token.txt");
     public static final Listener l = new Listener();
 
     public static final String SELF = "JavaTest";
@@ -22,12 +22,10 @@ public class Main {
         // sheetsCLI -> token dir -> sheetID -> message
         l.addEventAction(MessageReceivedEvent.class, messageReceivedEvent -> {
             System.out.println(messageReceivedEvent.getMessage().getContentRaw());
-            run(new String[] {
-                    "sheetsCLI.exe ./Token/credentials.json 15f3IR2T0ItInwfv9xe1JJmtzTq5W2YVlHSgZKbIq24Q " + messageReceivedEvent.getChannel().getName() + " ch:",
-                    "sheetsCLI.exe ./Token/credentials.json 15f3IR2T0ItInwfv9xe1JJmtzTq5W2YVlHSgZKbIq24Q " + messageReceivedEvent.getMessage().getAuthor().getAsTag()+":   "+messageReceivedEvent.getMessage().getContentRaw(),
-                    "sheetsCLI.exe ./Token/credentials.json 15f3IR2T0ItInwfv9xe1JJmtzTq5W2YVlHSgZKbIq24Q --------------------------------------------------------------------------"},
-                "./"
-            );
+
+            sendStringToSheets(messageReceivedEvent.getChannel().getName() + " ch: ", "15f3IR2T0ItInwfv9xe1JJmtzTq5W2YVlHSgZKbIq24Q");
+            sendStringToSheets(messageReceivedEvent.getAuthor().getName() + ":   " + messageReceivedEvent.getMessage().getContentRaw(), "15f3IR2T0ItInwfv9xe1JJmtzTq5W2YVlHSgZKbIq24Q");
+            sendStringToSheets("-----------------------------------------------------------------------------------------------------", "15f3IR2T0ItInwfv9xe1JJmtzTq5W2YVlHSgZKbIq24Q");
         });
 
         l.addEventAction(MessageReceivedEvent.class, messageReceivedEvent -> {
@@ -36,7 +34,14 @@ public class Main {
             }
         });
 
-        c.addListener(l);
+        System.out.println("sending...");
+        sendStringToSheets("test string to sheet method2", "1WnlzhJDbPux3vASM8dkZmBQ-ucQ6zf0JiUnrz1q20DM");
+
+        //c.addListener(l);
+    }
+
+    public static void sendStringToSheets(String string, String sheetID) {
+        run(new String[] {"sheetsCli.exe ./Token/credentials.json " + sheetID + " " + string}, "./");
     }
 
     public static void run(String[] actions, String dir) {
@@ -45,7 +50,7 @@ public class Main {
                 Process p = Runtime.getRuntime().exec(action, null, new File(dir));
 
                 if (p.waitFor() == 0) {System.out.println("done");}
-                else {System.out.println("fail");}
+                else {System.out.println("failed");}
             }
         } catch (IOException | InterruptedException e) {e.printStackTrace();}
     }
@@ -59,7 +64,8 @@ public class Main {
                 if (!message.getAuthor().getName().equals(SELF)) {
                     channel.sendMessage(reply).queue();
                 }
-            });        }
+            });
+        }
     }
 
     public static class MessageDetect extends EventAction<MessageReceivedEvent> {
